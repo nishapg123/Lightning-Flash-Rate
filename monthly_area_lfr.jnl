@@ -1,0 +1,44 @@
+!this program is to create premonsoon climatology plot for lightning flash rates
+SET MEMORY/SIZE=500
+use "/home/nisha/Documents/OHC_Work/LFRwork/lightning_flashes/anomaly/flash_cl.nc"
+
+
+PPL AXLSZE 0.13,0.13
+PPL AXLINT 2,1		  ! no. of major tics xaxis,yaxis
+PPL AXNMTC 1,1            ! no. of minor tics xaxis,yaxis
+PPL TICS ,,,,-1,-1        !the orientation of tics 
+
+
+DEFINE VIEWPORT/XLIMITS=.0,1/YLIMITS=0,1 v1
+DEFINE VIEWPORT/XLIMITS=.6,.8/YLIMITS=.7,.9 legend
+set text/font=times/bold
+set view v1
+plot/line=7/nolabel flash[y=22:26@ave,x=85:95@ave]
+plot/ov/line=8/nolabel flash[y=8:15@ave,x=75:80@ave]
+plot/ov/line=10/nolabel flash[y=28:36@ave,x=70:77@ave]
+!LABEL/NOUSER 1.2,6.3, -1, 0, 0.18, "LIGHTNING FLASH RATE CLIMATOLOGY"
+LABEL/NOUSER -0.8,1.5, -1, 90, 0.15, "LFR (conts. km<sup>-2</sup>day<sup>-1</sup>)"
+LABEL/NOUSER 3.5,-0.6, -1, 0, 0.15, "Time"
+
+!LABEL/NOUSER 2.1,4.5, -1, 0, 0.12, "ER"
+!LABEL/NOUSER 3.7,4, -1, 0, 0.10, "(22N-26N;85E-95E)"
+
+set text/color=red
+!LABEL/NOUSER 2.7,2.5, -1, 0, 0.12, "SR"
+!LABEL/NOUSER 2.3,2.5, -1, 0, 0.10, "(8N-15N;75E-80E)"
+
+
+set text/color=blue
+!LABEL/NOUSER 5,4.9, -1, 0, 0.12, "NR"
+!LABEL/NOUSER 5,4.8, -1, 0, 0.10, "(28N-36N;70E-77E)"
+set view legend
+
+plot/vs/nolab/axes=0,0,0,0/line/col=7 {0.0,0.1}, {1,1}
+plot/over/vs/nolab/line/col=8 {0.0,0.1}, {0.5,0.5}
+plot/over/vs/nolab/line/col=10 {0.0,0.1}, {0.0,0.0}
+set text/color=black
+LABEL/NOUSER 2.4,0.55, -1, 0, 0.19, "ER"  
+LABEL/NOUSER 2.4,0.2, -1, 0, 0.19, "SR"
+LABEL/NOUSER 2.4,-0.1, -1, 0, 0.19, "NR"
+
+cancel text

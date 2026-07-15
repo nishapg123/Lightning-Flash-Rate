@@ -1,0 +1,86 @@
+!this program is to plot lightning flash rates for region and CAPE
+SET MEMORY/SIZE=500
+use "/home/nisha/Documents/OHC_Work/data/ERA5/heatflux/cape_cl.nc"
+use "/home/nisha/Documents/OHC_Work/data/ERA5/heatflux/lhf_shf_cl.nc"
+
+let turbheat=lhf_cl[d=2]+shf_cl[d=2]
+
+
+DEFINE VIEWPORT/XLIM=0.1,0.9/YLIM=.6,1 U1
+DEFINE VIEWPORT/XLIM=0.1,0.9/YLIM=.6,1 U2
+DEFINE VIEWPORT/XLIM=0.1,0.9/YLIM=.3,.69 L1
+DEFINE VIEWPORT/XLIM=0.1,0.9/YLIM=.3,.69 L2
+DEFINE VIEWPORT/XLIM=0.1,0.9/YLIM= 0,.39 R1
+DEFINE VIEWPORT/XLIM=0.1,0.9/YLIM= 0,.39 R2
+DEFINE VIEWPORT/XLIMITS=.63,.78/YLIMITS=.78,1 legend1
+DEFINE VIEWPORT/XLIMITS=.63,.78/YLIMITS=.48,.69 legend2
+DEFINE VIEWPORT/XLIMITS=.63,.78/YLIMITS=.18,.39 legend3
+
+PPL AXLSZE 0.14,0.14
+PPL AXLINT 2,2		  ! no. of major tics xaxis,yaxis
+PPL AXNMTC 1,1            ! no. of minor tics xaxis,yaxis
+PPL TICS ,,,,-1,-1        !the orientation of tics 
+set text/font=times/bold
+
+set view U1; go magnify 1.3
+plot/axes=1,1,1,0/nolabel/color=7/ylim=0:1400:100 cape_cl[d=1,y=22:26@ave,x=85:95@ave]
+
+set text/font=times/bold/col=red
+set view U2; go magnify 1.3
+plot/axes=0,0,0,1/nolabel/ylim=10:150:10/col=8 turbheat[y=22:26@ave,x=85:95@ave]
+
+set text/font=times/bold/col=black
+!LABEL/NOUSER 0.6,2.1, -1, 0, 0.17, "ER"
+LABEL/NOUSER 0.1,2.6, -1, 0, 0.2, "(a)"
+
+!***********************************************
+set view L1; go magnify 1.3
+plot/axes=1,1,1,0/nolabel/color=7/ylim=0:1400:100 cape_cl[d=1,y=8:15@ave,x=75:80@ave]
+
+set text/font=times/bold/col=red
+set view L2; go magnify 1.3
+plot/axes=0,0,0,1/nolabel/ylim=10:150:10/col=8 turbheat[y=8:15@ave,x=75:80@ave]
+LABEL/NOUSER 10.3,0, -1, 90, 0.18, "Turbulent heat flux (Wm<sup>-2</sup>)"
+set text/font=times/bold/col=black
+
+!LABEL/NOUSER 0.6,2.1, -1, 0, 0.17, "SR"
+LABEL/NOUSER -1,0.5, -1, 90, 0.18, "CAPE (J kg<sup>-</sup><sup>1</sup>)"
+LABEL/NOUSER 0.1,2.6, -1, 0, 0.2, "(b)"
+!***********************************************
+
+set view R1; go magnify 1.3
+plot/axes=1,1,1,0/nolabel/color=7/ylim=0:1400:100 cape_cl[d=1,y=28:36@ave,x=70:77@ave]
+
+set text/font=times/bold/col=red
+set view R2; go magnify 1.3
+plot/axes=0,0,0,1/nolabel/ylim=10:150:10/col=8 turbheat[y=28:36@ave,x=70:77@ave]
+set text/font=times/bold/col=black
+
+!LABEL/NOUSER 0.6,2.1, -1, 0, 0.17, "NR"
+!LABEL/NOUSER 4,-0.6, -1, 0, 0.15, "Time"
+LABEL/NOUSER 0.1,2.6, -1, 0, 0.2, "(c)"
+!***********************************************
+
+set view legend1
+
+plot/vs/nolab/axes=0,0,0,0/line/col=7 {0.0,0.1}, {1.4,1.4}
+plot/over/vs/nolab/line/col=8 {0.0,0.1}, {1.1,1.1}
+LABEL/NOUSER 1.6,0.8, -1, 0, 0.18, "CAPE" 
+LABEL/NOUSER 1.6,0.5, -1, 0, 0.18, "Turbulent flux" 
+
+set view legend2
+
+plot/vs/nolab/axes=0,0,0,0/line/col=7 {0.0,0.1}, {1.4,1.4}
+plot/over/vs/nolab/line/col=8 {0.0,0.1}, {1.1,1.1}
+LABEL/NOUSER 1.6,0.8, -1, 0, 0.18, "CAPE" 
+LABEL/NOUSER 1.6,0.5, -1, 0, 0.18, "Turbulent flux" 
+
+set view legend3
+
+plot/vs/nolab/axes=0,0,0,0/line/col=7 {0.0,0.1}, {1.4,1.4}
+plot/over/vs/nolab/line/col=8 {0.0,0.1}, {1.1,1.1}
+LABEL/NOUSER 1.6,0.8, -1, 0, 0.18, "CAPE" 
+LABEL/NOUSER 1.6,0.5, -1, 0, 0.18, "Turbulent flux" 
+cancel text
+
+
