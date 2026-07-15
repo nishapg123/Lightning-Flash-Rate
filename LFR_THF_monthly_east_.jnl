@@ -1,0 +1,28 @@
+!this program is to plot lightning flash rates and turbulent heat flux for south region
+SET MEMORY/SIZE=500
+use "/home/nisha/Documents/OHC_Work/lightning_flashes/anomaly/flash_cl.nc"
+use "/home/nisha/Documents/OHC_Work/ERA5/lhf_shf_cl.nc"
+
+let turbheat=lhf_cl[d=2]+shf_cl[d=2]
+define view/x=0.02:0.95/y=0:1 vfull1
+define view/x=0.02:0.95/y=0:1 vfull2
+PPL AXLSZE 0.13,0.13
+PPL AXLINT 2,1		  ! no. of major tics xaxis,yaxis
+PPL AXNMTC 1,1            ! no. of minor tics xaxis,yaxis
+PPL TICS ,,,,-1,-1        !the orientation of tics 
+
+set view vfull1
+plot/axes=1,1,1,0/nolabel/ylim=0:0.13:.01 flash[d=1,y=22:26@ave,x=85:95@ave]
+
+set view vfull2
+plot/axes=0,0,0,1/nolabel/color=2/ylim=60:120:10 turbheat[y=22:26@ave,x=85:95@ave]
+
+LABEL/NOUSER 4,6.3, -1, 0, 0.15, @c007East Region(22N-26N;85E-95E)
+LABEL/NOUSER -0.9,1.5, -1, 90, 0.15, @c007Flash rate (counts/km^2/day)
+LABEL/NOUSER 8.5,4.5, -1, 270, 0.15, @c008Turbulent heat flux (W/m^2)
+LABEL/NOUSER 3.5,-0.6, -1, 0, 0.15, @c007TIME
+
+LABEL/NOUSER 5.5,5.5, -1, 0, 0.15, @c007r =0.92
+
+
+

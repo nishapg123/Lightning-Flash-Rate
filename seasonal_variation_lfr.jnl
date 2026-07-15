@@ -1,0 +1,48 @@
+!this program is to create premonsoon climatology plot for lightning flash rates
+SET MEMORY/SIZE=500
+use "/home/nisha/Documents/OHC_Work/LFRwork/lightning_flashes/anomaly/flash_cl.nc"
+!set window/aspect=0.65
+set mode metafile
+define viewport/x=0.05,0.55/y=0.47,0.97 v1
+define viewport/x=0.49,0.99/y=0.47,0.97 v2
+define viewport/x=0.05,0.55/y=0.08,0.58 v3
+define viewport/x=0.49,0.99/y=0.08,0.58 v4
+
+set region/y=0:40/x=50:110
+PPL AXLSZE 0.13,0.13
+PPL AXLINT 2,1		  ! no. of major tics xaxis,yaxis
+PPL AXNMTC 1,1            ! no. of minor tics xaxis,yaxis
+PPL TICS ,,,,-1,-1        !the orientation of tics 
+set text/font=times/bold
+!set text/isiz=2 CBAR
+SET VIEWPORT v1;go magnify 1.2
+contour/nolabel/level=(-inf)(0,.10,.01)(inf) (flash[l=3]+flash[l=4]+flash[l=5])/3;go land 7
+!LABEL/NOUSER 1.2,4.3, -1, 0, 0.22, "LIGHTNING FLASH RATE SEASONAL CLIMATOLOGY"
+!LABEL/NOUSER 1.3,3.8, -1, 0, 0.20, "Premonsoon"
+LABEL/NOUSER 0.2,4.1, -1, 0, 0.2, "(a)"
+
+
+SET VIEWPORT v2;go magnify 1.2
+contour/nolabel/level=(-inf)(0,.10,.01)(inf) (flash[l=6]+flash[l=7]+flash[l=8]+flash[l=9])/4;go land 7
+!LABEL/NOUSER 4.95,4.1, -1, 0, 0.11, "conts km<sup>-2</sup> day<sup>-1</sup>"
+!LABEL/NOUSER 1.8,3.8, -1, 0, 0.20, "Monsoon"
+LABEL/NOUSER 0.2,4.1, -1, 0, 0.2, "(b)"
+
+
+SET VIEWPORT v3;go magnify 1.2
+contour/nolabel/level=(-inf)(0,.10,.01)(inf) (flash[l=10]+flash[l=11])/2;go land 7
+!LABEL/NOUSER 1.3,3.8, -1, 0, 0.20, "Post Monsoon"
+LABEL/NOUSER 0.2,4.1, -1, 0, 0.2, "(c)"
+
+
+SET VIEWPORT v4;go magnify 1.2
+contour/nolabel/level=(-inf)(0,.10,.01)(inf) (flash[l=1]+flash[l=12])/2;go land 7  
+poly/ov/nolab/line=7 {85,95,95,85,85}, {22,22,26,26,22} 
+poly/ov/nolab/line=7 {75,80,80,75,75}, {8,8,15,15,8} 
+poly/ov/nolab/line=7 {70,77,77,70,70}, {28,28,36,36,28}
+!LABEL/NOUSER 4.95,4.1, -1, 0, 0.11, "conts km<sup>-2</sup> day<sup>-1</sup>"
+!LABEL/NOUSER 1.8,3.8, -1, 0, 0.20, "Winter"
+LABEL/NOUSER 0.2,4.1, -1, 0, 0.2, "(d)"
+LABEL/NOUSER 1.9,3.1, -1, 0, 0.17, "NR"
+LABEL/NOUSER 3.4,2.3, -1, 0, 0.17, "ER"
+LABEL/NOUSER 2.3,1, -1, 0, 0.17, "SR"
